@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   };
   constructor(private productosServicio: ProductosService) { }
 
-  // tslint:disable-next-line:use-lifecycle-interface
+
   ngOnInit() {
     this.recuperarTodos();
   }
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
     }
     const formData = new FormData();
 
-    // tslint:disable-next-line:prefer-for-of
+
     formData.append('descripcion', this.prod.descripcion);
     formData.append('precio', this.prod.precio);
     formData.append('imagen', this.uploadedFiles[0], this.uploadedFiles[0].name);

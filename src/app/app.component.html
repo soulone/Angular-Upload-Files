@@ -1,75 +1,74 @@
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-12">
-      <h3 style="text-align: center;"><strong>Productos App</strong></h3>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12 col-lg-6">
-      <div class="card my-5">
-        <div class="card-body p-0">
-          <table class="table table-striped table-primary m-0" *ngIf="hayRegistros(); else sinproductos">
-            <thead class="">
-              <tr>
-                <td class="text-black col-sm-2">Descripcion</td>
-                <td class="text-black col-sm-2">Precio</td>
-                <td class="text-black col-sm-2">Archivo</td>
-                <td class="text-black col-sm-2"></td>
-                <td class="text-black col-sm-2"></td>
-              </tr>
-            </thead>
-            <tr *ngFor="let producto of lista">
-              <td class="col-sm-2">{{producto.descripcion}}</td>
-              <td class="col-sm-2">{{producto.precio}}</td>
-              <td class="col-sm-2"> <img src='{{ "http://localhost:3000/images/" + producto.imagen }}' alt="" srcset="" height="50">
-              </td>
-              <td class="col-sm-2">
-                <a (click)="eliminar(producto.codigo)" class="pointer fa fa-trash fa-2x text-danger"></a>
-              </td>
-              <td class="col-sm-2">
-                <a (click)="mostrar(producto.codigo)" class="pointer fa fa-pencil fa-2x text-primary"></a>
-              </td>
+<div class="container-fluid p-0">  
+    <nav class="navbar navbar-dark shadow-sm " style="background-color: #f55;">
+        <a class="navbar-brand" href="#">          
+          MySQL-Image-Store
+        </a>
+      </nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-8" >
+          <div class="card my-5 shadow-none">
+              <h5 class="card-header text-white" style="background-color: #f00;">Panel</h5>
+            <div class="card-body">
+              <form action="/" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                  <label for="descripcion">Descripción</label>
+                  <input type="text" class="form-control" [(ngModel)]="prod.descripcion"
+                    [ngModelOptions]="{standalone: true}" placeholder="Ingrese una descripción">
+                </div>
+                <div class="form-group">
+                  <label for="descripcion">Precio</label>
+                  <input type="number" class="form-control" [(ngModel)]="prod.precio" [ngModelOptions]="{standalone: true}" placeholder="Ingrese un precio">
+                </div>
+                <div class="form-group">
+                  <label for="descripcion">Imagen</label>
+    
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFileLangHTML" accept="image/*"
+                      (change)="fileChange($event)">
+                    <label class="custom-file-label" for="customFileLangHTML" data-browse="Imagen">Seleccione una imagen</label>
+                  </div>               
+                </div>
+                <button class="btn btn-outline-primary btn-sm m-2 shadow-none" (click)="nuevo()">Agregar</button>
+                <button class="btn btn-outline-warning btn-sm m-2 shadow-none" (click)="actualizar()">Modificar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <div class="container">
+              <picture>
+                  <img class="img-fluid pt-5" src="/assets/shop.png" alt="">
+                </picture>
+          </div>
+        </div>            
+</div>
+<h1>Lista de productos</h1>
+<div class="container-fluid p-0 pt-3">    
+        <table class="table table-bordered" *ngIf="hayRegistros(); else sinproductos">
+          <thead>
+            <tr>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Archivo</th>
+              <th>Eliminar</th>
+              <th>Editar</th>
             </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-12 col-lg-6">
-      <div class="card my-5">
-        <div class="card-body" style="background-color: #0094cc;">
-          <form action="/" enctype="multipart/form-data" method="post">
-            <div class="form-group">
-              <label for="descripcion">Descripcion</label>
-              <input type="text" class="form-control" [(ngModel)]="prod.descripcion"
-                [ngModelOptions]="{standalone: true}" placeholder="Ingrese una descripción">
-            </div>
-            <div class="form-group">
-              <label for="descripcion">Precio</label>
-              <input type="number" class="form-control" [(ngModel)]="prod.precio" [ngModelOptions]="{standalone: true}" placeholder="Ingrese un precio">
-            </div>
-            <div class="form-group">
-              <label for="descripcion">Imagen</label>
-
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFileLangHTML" accept="image/*"
-                  (change)="fileChange($event)">
-                <label class="custom-file-label" for="customFileLangHTML" data-browse="Imagen">Seleccione una imagen</label>
-              </div>
-
-
-              <!-- <input #imageInput type="file" class="custom-file-input" id="inputGroupFile01" accept="image/*"
-                aria-describedby="inputGroupFileAddon01" (change)="fileChange($event)">
-              <label class="custom-file-label" for="inputGroupFile01">
-                Choose file
-              </label> -->
-            </div>
-            <button class="btn btn-primary btn-sm m-2" (click)="nuevo()">Agregar</button>
-            <button class="btn btn-success btn-sm m-2" (click)="actualizar()">Modificar</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-  </div>
+          </thead>
+          <tbody>
+              <tr *ngFor="let producto of lista">
+                  <td class="">{{producto.descripcion}}</td>
+                  <td class="">{{producto.precio}}</td>
+                  <td class=" "> <img src='{{ "http://localhost:3000/images/" + producto.imagen }}' alt="" srcset="" height="50">
+                  </td>
+                  <td class="col-sm-2">
+                    <a (click)="eliminar(producto.codigo)" class=" text-white btn btn-primary">Eliminar</a>
+                  </td>
+                  <td class="col-sm-2">
+                    <a (click)="mostrar(producto.codigo)" class="text-white btn btn-danger">Editar</a>
+                  </td>
+                </tr>
+            </tbody>                
+        </table>      
+</div>      
 </div>
